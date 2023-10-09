@@ -40,7 +40,7 @@ userRouter.post("/login", async (req, res) => {
         }
 
     }
-    else res.status(500).json({ msg: "This email does not exist!" })
+    else res.status(400).json({ msg: "This email does not exist!" })
 })
 
 
