@@ -1,8 +1,5 @@
 const express = require("express");
 const productRouter = express.Router();
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const authMiddleWare = require("../middleWares/authMiddle")
 const Product = require("../models/productModel");
 
 
@@ -26,8 +23,6 @@ productRouter.get("/", async (req, resp) => {
         }
         else {
             const product = await Product.find(filters).sort(sortDb);
-            const totalCount = await Product.find(filters).count();
-            console.log(totalCount)
             resp.status(200).send(product)
 
         }

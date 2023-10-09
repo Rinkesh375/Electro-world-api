@@ -1,10 +1,8 @@
 const express = require("express");
 const userRouter = express.Router();
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const authMiddleWare = require("../middleWares/authMiddle");
 const User = require("../models/userModel");
-const BlackList = require("../models/blackList");
+
 
 userRouter.post("/register", async (req, res) => {
     const { email, password } = req.body;
@@ -34,13 +32,8 @@ userRouter.post("/login", async (req, res) => {
     if (user) {
         try {
             const match = await bcrypt.compare(password, user.password);
-            if (match) {
-                const token = jwt.sign({ project:"Electro-World" }, process.env.secretKey);
-                 user._doc.token = token
-               
-                res.status(200).json(user)
-            }
-            else res.status(400).json({ err: "Invalid credentials!" })
+            if (match)  res.status(200).json(user)
+            else res.status(400).json({ err: "Invalid credentials!" });
         } catch (error) {
             res.status(400).json({ error: error.message })
         }
@@ -53,7 +46,7 @@ userRouter.post("/login", async (req, res) => {
 
 
 
-userRouter.get("/addToCart/:id", authMiddleWare, async (req, res) => {
+userRouter.get("/addToCart/:id",  async (req, res) => {
 
     try {
         const { id } = req.params;
@@ -71,7 +64,7 @@ userRouter.get("/addToCart/:id", authMiddleWare, async (req, res) => {
 })
 
 
-userRouter.patch("/addToCart/:id", authMiddleWare, async (req, res) => {
+userRouter.patch("/addToCart/:id",  async (req, res) => {
 
     try {
      
@@ -93,19 +86,7 @@ userRouter.patch("/addToCart/:id", authMiddleWare, async (req, res) => {
 
 
 
-userRouter.get("/logout", async (req, resp) => {
-    const token = req.headers['authorization']?.split(" ")[1];
-    if(token){
-        try {
-              await  BlackList.create({token});
-              resp.status(200).send("logout successfully")
-        } catch (error) {
-            resp.status(500).send({error})
-        }
-    }
-    else resp.status(400).send("token not provided")
 
-})
 
 
 

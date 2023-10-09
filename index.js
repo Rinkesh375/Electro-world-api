@@ -3,7 +3,6 @@ const app = express();
 const cors = require("cors");
 const userRouter = require("./routers/userRouter")
 const productRouter  = require("./routers/productRouter")
-const authMiddleWare = require("./middleWares/authMiddle")
 const {connection} = require("./dbConnect/dbConnection")
 require("dotenv").config();
 const port = process.env.PORT || 4000
@@ -19,9 +18,8 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/users",userRouter)
-
-app.use(authMiddleWare)
 app.use("/products",productRouter)
+
 
 app.listen(port,async()=>{
          try {
