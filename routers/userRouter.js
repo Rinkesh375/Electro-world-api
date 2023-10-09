@@ -18,7 +18,7 @@ userRouter.post("/register", async (req, res) => {
                 else res.json({ err: err.message });
             })
         } catch (error) {
-            res.status(400).json({ error: error.message })
+            res.status(500).json({ error: error.message })
         }
 
     }
@@ -36,7 +36,7 @@ userRouter.post("/login", async (req, res) => {
             if (match)  res.status(200).json(user)
             else res.status(400).json({ err: "Invalid credentials!" });
         } catch (error) {
-            res.status(400).json({ error: error.message })
+            res.status(500).json({ error: error.message })
         }
 
     }
@@ -59,7 +59,7 @@ userRouter.get("/addToCart/:id",  async (req, res) => {
         else res.status(400).json({ err: "Given id does not match" })
     }
     catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 
 })
@@ -80,7 +80,7 @@ userRouter.patch("/addToCart/:id",  async (req, res) => {
         else res.status(400).json({ err: "Given id does not match" })
     }
     catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 
 })
