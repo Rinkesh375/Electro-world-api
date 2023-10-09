@@ -34,13 +34,13 @@ userRouter.post("/login", async (req, res) => {
         try {
             const match = await bcrypt.compare(password, user.password);
             if (match)  res.status(200).json(user)
-            else res.status(400).json({ err: "Invalid credentials!" });
+            else res.json({ err: "Invalid credentials!" });
         } catch (error) {
             res.status(400).json({ error: error.message })
         }
 
     }
-    else res.status(400).json({ msg: "This email does not exist!" })
+    else res.json({ msg: "This email does not exist!" })
 })
 
 
@@ -56,7 +56,7 @@ userRouter.get("/addToCart/:id",  async (req, res) => {
           const addToCart = user.addToCart;
           res.status(200).json(addToCart)
         }
-        else res.status(400).json({ err: "Given id does not match" })
+        else res.json({ err: "Given id does not match" })
     }
     catch (error) {
         res.status(400).json({ error: error.message });
@@ -77,7 +77,7 @@ userRouter.patch("/addToCart/:id",  async (req, res) => {
         
           res.status(200).json(user)
         }
-        else res.status(400).json({ err: "Given id does not match" })
+        else res.json({ err: "Given id does not match" })
     }
     catch (error) {
         res.status(400).json({ error: error.message });

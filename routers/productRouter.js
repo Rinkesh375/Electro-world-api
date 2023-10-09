@@ -28,7 +28,7 @@ productRouter.get("/", async (req, resp) => {
         }
 
     } catch (error) {
-        resp.status(500).send({ error })
+        resp.status(500).json({ error })
     }
 })
 
