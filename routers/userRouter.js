@@ -12,16 +12,17 @@ userRouter.post("/register", async (req, res) => {
             bcrypt.hash(password, 5, async (err, hash) => {
                 if (hash) {
                     await User.create({ ...req.body, password: hash })
+                 
                     res.status(201).json({ msg: "User has been created", user: req.body })
                 }
-                else res.status(400).json({ err: err.message });
+                else res.json({ err: err.message });
             })
         } catch (error) {
             res.status(400).json({ error: error.message })
         }
 
     }
-    else res.status(400).json({ msg: "This email already exists" });
+    else res.json({ msg: "This email already exists" });
 })
 
 
