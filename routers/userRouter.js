@@ -51,6 +51,7 @@ userRouter.get("/addToCart/:id",  async (req, res) => {
 
     try {
         const { id } = req.params;
+   
         const user = await User.findById(id);
         if (user) {
           const addToCart = user.addToCart;
@@ -70,6 +71,7 @@ userRouter.patch("/addToCart/:id",  async (req, res) => {
     try {
      
         const { id } = req.params;
+        console.log("id",id,"-1")
         const addToCart = req.body
        
         const user = await User.findByIdAndUpdate(id,{addToCart},{new:true});
