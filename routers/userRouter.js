@@ -34,7 +34,7 @@ userRouter.post("/login", async (req, res) => {
         try {
             const match = await bcrypt.compare(password, user.password);
             if (match)  res.status(200).json(user)
-            else res.json({ err: "Invalid credentials!" });
+            else res.status(500).json({ err: "Invalid credentials!" });
         } catch (error) {
             res.status(400).json({ error: error.message })
         }
